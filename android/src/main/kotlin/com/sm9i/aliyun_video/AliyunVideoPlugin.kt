@@ -28,11 +28,21 @@ class AliyunVideoPlugin : MethodCallHandler {
         this.activity = registrar.activity()
         this.resultMap = HashMap()
         registrar.addActivityResultListener { reqCode, respCode, intent ->
-            if (reqCode == AlivcSvideoRecordActivity.REQUEST_CODE && respCode == AlivcSvideoRecordActivity.RESPONSE_CODE) {
-                if (intent.hasExtra("param")) {
-                    resultMap[reqCode.toString()]?.success(intent.getStringExtra("param"))
-
+            if (reqCode == AlivcSvideoRecordActivity.REQUEST_CODE) {
+                when (respCode) {
+                    AlivcSvideoRecordActivity.RESPONSE_VIDEO_CODE -> {
+                        if (intent.hasExtra("param")) {
+                            resultMap[reqCode.toString()]?.success(intent.getStringExtra("param"))
+                        }
+                    }
+                    AlivcSvideoRecordActivity.RESPONSE_PHOTO_CODE -> {
+                        if (intent.hasExtra("param")) {
+                            resultMap[reqCode.toString()]?.success(intent.getStringExtra("param"))
+                        }
+                    }
                 }
+
+
             }
             false
         }

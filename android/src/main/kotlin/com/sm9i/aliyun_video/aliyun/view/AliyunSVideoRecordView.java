@@ -4,9 +4,13 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -96,8 +100,13 @@ import com.sm9i.aliyun_video.aliyun.view.focus.FocusView;
 import com.sm9i.aliyun_video.aliyun.view.music.MusicSelectListener;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -553,6 +562,13 @@ public class AliyunSVideoRecordView extends FrameLayout
             }
 
             @Override
+            public void takePhoto(boolean needBitmap) {
+                if (mBackClickListener != null) {
+                    recorder.takePicture(needBitmap);
+                }
+            }
+
+            @Override
             public void onNextClick() {
                 // 完成录制
                 if (!isStopToCompleteDuration) {
@@ -699,6 +715,7 @@ public class AliyunSVideoRecordView extends FrameLayout
                 //重新绘制界面
                 setReSizeRatioMode(ratio);
             }
+
         });
         mControlView.setRecordType(recorder.isMixRecorder());
         addSubView(mControlView);
@@ -1370,6 +1387,7 @@ public class AliyunSVideoRecordView extends FrameLayout
 
             }
 
+
             @Override
             public void onProgress(final long duration) {
                 final int currentDuration = clipManager.getDuration();
@@ -1462,6 +1480,7 @@ public class AliyunSVideoRecordView extends FrameLayout
             @Override
             public void onPictureBack(final Bitmap bitmap) {
 
+                mCompleteListener.onTakeComplete(saveImageToGallery(bitmap));
             }
 
             @Override
@@ -1958,6 +1977,8 @@ public class AliyunSVideoRecordView extends FrameLayout
      */
     public interface OnFinishListener {
         void onComplete(String path, int duration, int ratioMode);
+
+        void onTakeComplete(String path);
     }
 
     public void setCompleteListener(OnFinishListener mCompleteListener) {
@@ -2100,5 +2121,47 @@ public class AliyunSVideoRecordView extends FrameLayout
 
     public void setOnMusicSelectListener(MusicSelectListener musicSelectListener) {
         this.mOutMusicSelectListener = musicSelectListener;
+    }
+
+    //保存文件到本地？
+    public String saveImageToGallery(Bitmap bmp) {
+        //生成路径
+        String root = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String dirName = "erweima16";
+        File appDir = new File(root, dirName);
+        if (!appDir.exists()) {
+            appDir.mkdirs();
+        }
+
+        //文件名为时间
+        long timeStamp = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sd = sdf.format(new Date(timeStamp));
+        String fileName = sd + ".jpg";
+
+        //获取文件
+        File file = new File(appDir, fileName);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            //通知系统相册刷新
+            mActivity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
+            return file.getAbsolutePath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

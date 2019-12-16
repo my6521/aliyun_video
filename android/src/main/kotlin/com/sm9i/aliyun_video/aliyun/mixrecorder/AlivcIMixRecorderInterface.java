@@ -17,8 +17,8 @@ import com.qu.preview.callback.OnFrameCallBack;
 import com.qu.preview.callback.OnTextureIdCallBack;
 
 /**
-*整合录制接口，包含录制，合拍，如果需要修改@AliyunSvideoRecordView的的recorder请先修改本接口
-*/
+ * 整合录制接口，包含录制，合拍，如果需要修改@AliyunSvideoRecordView的的recorder请先修改本接口
+ */
 public interface AlivcIMixRecorderInterface {
 
     void setMediaInfo(AliyunMixMediaInfoParam inputInfo, MediaInfo outputInfo);
@@ -121,5 +121,8 @@ public interface AlivcIMixRecorderInterface {
     void setMixPlayerRatio(SurfaceView surfaceView);
 
     void release();
+
+
+    void takePicture(boolean needBitmap);
 
 }

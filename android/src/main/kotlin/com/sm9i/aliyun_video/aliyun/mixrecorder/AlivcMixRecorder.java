@@ -300,6 +300,10 @@ public class AlivcMixRecorder implements AlivcIMixRecorderInterface {
     }
 
     @Override
+    public void takePicture(boolean needBitmap) {
+    }
+
+    @Override
     public void restartMv() {
 
     }

@@ -5,11 +5,11 @@ package com.sm9i.aliyun_video.aliyun.view.control;
  */
 public enum RecordMode {
     /**
-     * 单击拍摄
+     * 拍照
      */
-    SINGLE_CLICK,
+    PHOTO,
     /**
-     * 长按拍摄
+     *拍视频
      */
-    LONG_PRESS;
+    VIDEO
 }

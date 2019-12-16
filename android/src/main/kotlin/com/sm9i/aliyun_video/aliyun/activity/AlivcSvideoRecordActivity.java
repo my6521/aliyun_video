@@ -53,7 +53,8 @@ import java.util.Map;
 public class AlivcSvideoRecordActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1999;
-    public static final int RESPONSE_CODE = 1998;
+    public static final int RESPONSE_VIDEO_CODE = 1998;
+    public static final int RESPONSE_PHOTO_CODE = 1999;
 
 
     private AliyunSVideoRecordView videoRecordView;
@@ -182,64 +183,6 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
         }
     }
 
-//    private void copyAssets() {
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                copyAssetsTask = new CopyAssetsTask(AlivcSvideoRecordActivity.this).executeOnExecutor(
-//                        AsyncTask.THREAD_POOL_EXECUTOR);
-//            }
-//        }, 700);
-//
-//    }
-//
-//    public static class CopyAssetsTask extends AsyncTask<Void, Void, Void> {
-//
-//        private WeakReference<AlivcSvideoRecordActivity> weakReference;
-//        ProgressDialog progressBar;
-//
-//        CopyAssetsTask(AlivcSvideoRecordActivity activity) {
-//
-//            weakReference = new WeakReference<>(activity);
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            AlivcSvideoRecordActivity activity = weakReference.get();
-//            if (activity != null) {
-//                progressBar = new ProgressDialog(activity);
-////                progressBar.setMessage(activity.getResources().getString(R.string.aliyun_res_copy));
-//                progressBar.setCanceledOnTouchOutside(false);
-//                progressBar.setCancelable(false);
-//                progressBar.setProgressStyle(android.app.ProgressDialog.STYLE_SPINNER);
-//                progressBar.show();
-//            }
-//
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            AlivcSvideoRecordActivity activity = weakReference.get();
-//            if (activity != null) {
-//                Common.copyAll(activity);
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//            progressBar.dismiss();
-//            AlivcSvideoRecordActivity activity = weakReference.get();
-//            if (activity != null) {
-//                //资源复制完成之后设置一下人脸追踪，防止第一次人脸动图应用失败的问题
-//                activity.videoRecordView.setFaceTrackModePath();
-//            }
-//
-//        }
-//    }
-
 
     /**
      * 获取上个页面的传参
@@ -364,9 +307,15 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
                         .setRatio(ratio)
                         .build();
                 // setResult(RESPONSE_CODE, new Intent().putExtra("param", param));
-                setResult(RESPONSE_CODE, new Intent().putExtra("param", mediaInfo.filePath));
+                setResult(RESPONSE_VIDEO_CODE, new Intent().putExtra("param", mediaInfo.filePath));
                 finish();
 //                 EditorActivity.startEdit(AlivcSvideoRecordActivity.this, param);
+            }
+
+            @Override
+            public void onTakeComplete(String path) {
+                setResult(RESPONSE_PHOTO_CODE, new Intent().putExtra("param", path));
+                finish();
             }
         });
     }
@@ -511,4 +460,61 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
             openAppDetDialog.show();
         }
     }
+    //    private void copyAssets() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                copyAssetsTask = new CopyAssetsTask(AlivcSvideoRecordActivity.this).executeOnExecutor(
+//                        AsyncTask.THREAD_POOL_EXECUTOR);
+//            }
+//        }, 700);
+//
+//    }
+//
+//    public static class CopyAssetsTask extends AsyncTask<Void, Void, Void> {
+//
+//        private WeakReference<AlivcSvideoRecordActivity> weakReference;
+//        ProgressDialog progressBar;
+//
+//        CopyAssetsTask(AlivcSvideoRecordActivity activity) {
+//
+//            weakReference = new WeakReference<>(activity);
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            AlivcSvideoRecordActivity activity = weakReference.get();
+//            if (activity != null) {
+//                progressBar = new ProgressDialog(activity);
+////                progressBar.setMessage(activity.getResources().getString(R.string.aliyun_res_copy));
+//                progressBar.setCanceledOnTouchOutside(false);
+//                progressBar.setCancelable(false);
+//                progressBar.setProgressStyle(android.app.ProgressDialog.STYLE_SPINNER);
+//                progressBar.show();
+//            }
+//
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            AlivcSvideoRecordActivity activity = weakReference.get();
+//            if (activity != null) {
+//                Common.copyAll(activity);
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//            progressBar.dismiss();
+//            AlivcSvideoRecordActivity activity = weakReference.get();
+//            if (activity != null) {
+//                //资源复制完成之后设置一下人脸追踪，防止第一次人脸动图应用失败的问题
+//                activity.videoRecordView.setFaceTrackModePath();
+//            }
+//
+//        }
+//    }
 }

@@ -73,6 +73,7 @@ class _MyAppState extends State<MyApp> {
               ),
               RaisedButton(
                 onPressed: () async {
+                  print(filePath);
                   if (filePath != null) {
                     Navigator.push(
                         context,

@@ -28,6 +28,7 @@ public interface ControlViewListener {
 
     /**
      * 闪光灯模式
+     *
      * @param flashType
      */
     void onLightSwitch(FlashType flashType);
@@ -70,8 +71,11 @@ public interface ControlViewListener {
      * 弹出滤镜选择弹窗
      */
     void onFilterEffectClick();
+
     /**
      * 切换画幅比例
      */
     void onChangeAspectRatioClick(int ratio);
+
+    void takePhoto(boolean needBitmap);
 }
