@@ -31,11 +31,15 @@ import com.sm9i.aliyun_video.aliyun.view.StringScrollPicker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 美颜  gif  滤镜 注释掉
+ */
 public class ControlView extends RelativeLayout implements View.OnTouchListener {
     private static final String TAG = ControlView.class.getSimpleName();
     private static final int MAX_ITEM_COUNT = 5;
-    private LinearLayout llBeautyFace;
-    private LinearLayout llGifEffect;
+    //美颜和gif
+    // private LinearLayout llBeautyFace;
+    // private LinearLayout llGifEffect;
     private ImageView ivReadyRecord;
     private ImageView aliyunSwitchLight;
     private ImageView aliyunSwitchCamera;
@@ -139,8 +143,8 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         aliyunRecordBtn = (FrameLayout) findViewById(R.id.aliyun_record_bg);
         aliyunRecordProgress = (FanProgressBar) findViewById(R.id.aliyun_record_progress);
         aliyunDelete = (TextView) findViewById(R.id.aliyun_delete);
-        llBeautyFace = findViewById(R.id.ll_beauty_face);
-        llGifEffect = findViewById(R.id.ll_gif_effect);
+        //  llBeautyFace = findViewById(R.id.ll_beauty_face);
+        // llGifEffect = findViewById(R.id.ll_gif_effect);
         mPickerView = findViewById(R.id.alivc_video_picker_view);
         mTitleView = findViewById(R.id.alivc_record_title_view);
         mRecordTipTV = findViewById(R.id.alivc_record_tip_tv);
@@ -168,8 +172,8 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         //切换摄像头的图片
         aliyunSwitchCamera.setImageDrawable(getSwitchCameraDrawable());
         List<String> strings = new ArrayList<>(2);
-        strings.add("Take picture");
-        strings.add("Take video");
+        strings.add("Photo");
+        strings.add("Video");
         mPickerView.setData(strings);
         //向上的三角形对应的图片
         mPickerView.setCenterItemBackground(UIConfigManager.getDrawableResources(getContext(), R.attr.triangleImage, R.mipmap.alivc_svideo_icon_selected_indicator));
@@ -206,6 +210,12 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
                 //}
                 if (position == 0) {
                     recordMode = RecordMode.PHOTO;
+                    //隐藏所有View
+//
+//                    aliyunRecordDuration.setVisibility(GONE);
+//                    aliyunRateBar.setVisibility(GONE);
+//                    aliyunRateBar
+
                 } else {
                     recordMode = RecordMode.VIDEO;
                 }
@@ -364,18 +374,18 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             }
         });
         // 点击美颜
-        llBeautyFace.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    if (FastClickUtil.isFastClick()) {
-                        return;
-                    }
-                    mListener.onBeautyFaceClick();
-                }
-            }
-        });
+//        llBeautyFace.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (mListener != null) {
+//                    if (FastClickUtil.isFastClick()) {
+//                        return;
+//                    }
+//                    mListener.onBeautyFaceClick();
+//                }
+//            }
+//        });
         // 点击音乐
 //        mAlivcMusic.setOnClickListener(new OnClickListener() {
 //            @Override
@@ -398,17 +408,17 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             }
         });
         // 点击动图
-        llGifEffect.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FastClickUtil.isFastClick()) {
-                    return;
-                }
-                if (mListener != null) {
-                    mListener.onGifEffectClick();
-                }
-            }
-        });
+//        llGifEffect.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (FastClickUtil.isFastClick()) {
+//                    return;
+//                }
+//                if (mListener != null) {
+//                    mListener.onGifEffectClick();
+//                }
+//            }
+//        });
         mLlFilterEffect.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -649,11 +659,11 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             updateDeleteView();
             if (recordState == RecordState.STOP) {
                 //其他按钮现实
-                llBeautyFace.setVisibility(VISIBLE);
-                llGifEffect.setVisibility(VISIBLE);
+                // llBeautyFace.setVisibility(VISIBLE);
+                //  llGifEffect.setVisibility(VISIBLE);
             } else {
-                llGifEffect.setVisibility(INVISIBLE);
-                llBeautyFace.setVisibility(INVISIBLE);
+                //llGifEffect.setVisibility(INVISIBLE);
+                // llBeautyFace.setVisibility(INVISIBLE);
             }
         }
 
