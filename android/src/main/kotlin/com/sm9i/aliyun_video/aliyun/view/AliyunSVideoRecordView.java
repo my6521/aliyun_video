@@ -43,6 +43,7 @@ import com.aliyun.svideo.sdk.external.struct.recorder.CameraParam;
 import com.aliyun.svideo.sdk.external.struct.recorder.MediaInfo;
 import com.aliyun.svideo.sdk.external.struct.snap.AliyunSnapVideoParam;
 //import com.google.gson.Gson;
+import com.google.gson.Gson;
 import com.qu.preview.callback.OnFrameCallBack;
 import com.qu.preview.callback.OnTextureIdCallBack;
 import com.sm9i.aliyun_video.R;
@@ -2067,15 +2068,15 @@ public class AliyunSVideoRecordView extends FrameLayout
 
     private void saveBeautyParams(int position, BeautyParams beautyParams) {
         if (beautyParams != null) {
-//            Gson gson = new Gson();
-//
-//            rememberParamList.set(position, beautyParams);
-//            rememberBeautyBean.setBeautyList(rememberParamList);
-//            String jsonString = gson.toJson(rememberBeautyBean);
-//
-//            if (!TextUtils.isEmpty(jsonString)) {
-//                SharedPreferenceUtils.setBeautyParams(getContext(), jsonString);
-//            }
+            Gson gson = new Gson();
+
+            rememberParamList.set(position, beautyParams);
+            rememberBeautyBean.setBeautyList(rememberParamList);
+            String jsonString = gson.toJson(rememberBeautyBean);
+
+            if (!TextUtils.isEmpty(jsonString)) {
+                SharedPreferenceUtils.setBeautyParams(getContext(), jsonString);
+            }
         }
     }
 
@@ -2083,18 +2084,17 @@ public class AliyunSVideoRecordView extends FrameLayout
      * 获取美颜美肌参数
      */
     private BeautyParams getBeautyParams(int position) {
-//        String jsonString = SharedPreferenceUtils.getBeautyParams(getContext());
-//        if (TextUtils.isEmpty(jsonString)) {
-//            return null;
-//        }
-//        Gson gson = new Gson();
-//        RememberBeautyBean rememberBeautyBean = gson.fromJson(jsonString, RememberBeautyBean.class);
-//        List<BeautyParams> beautyList = rememberBeautyBean.getBeautyList();
-//        if (beautyList == null) {
-//            return null;
-//        }
-//        return beautyList.get(position);
-        return null;
+        String jsonString = SharedPreferenceUtils.getBeautyParams(getContext());
+        if (TextUtils.isEmpty(jsonString)) {
+            return null;
+        }
+        Gson gson = new Gson();
+        RememberBeautyBean rememberBeautyBean = gson.fromJson(jsonString, RememberBeautyBean.class);
+        List<BeautyParams> beautyList = rememberBeautyBean.getBeautyList();
+        if (beautyList == null) {
+            return null;
+        }
+        return beautyList.get(position);
     }
 
 

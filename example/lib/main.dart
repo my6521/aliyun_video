@@ -1,9 +1,11 @@
+import 'package:aliyun_video_example/video_play_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:aliyun_video/aliyun_video.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
 
 void main() => runApp(MyApp());
 
@@ -20,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   ];
 
   bool hasPermissions = false;
+  String filePath;
 
   @override
   void initState() {
@@ -52,20 +55,35 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () {
-                if (hasPermissions) {
-                  AliyunVideo.startVideo();
-                } else {
-                  checkPermission();
-                }
-              },
-              child: Text('take'),
-            )
-          ],
+        body: Builder(
+          builder: (context) => ListView(
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () async {
+                  if (hasPermissions) {
+                    AliyunVideo.startVideo().then((res) {
+                      filePath = res;
+                    });
+                  } else {
+                    checkPermission();
+                  }
+                },
+                child: Text('take'),
+              ),
+              RaisedButton(
+                onPressed: () async {
+                  if (filePath != null) {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (_) => VideoPlayerPage(filePath)));
+                  }
+                },
+                child: Text('play'),
+              )
+            ],
+          ),
         ),
       ),
     );

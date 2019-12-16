@@ -58,9 +58,9 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
     private FrameLayout mTitleView;
     private StringScrollPicker mPickerView;
     private ControlViewListener mListener;
-    private ImageView mIvMusicIcon;
+    // private ImageView mIvMusicIcon;
     private LinearLayout mLlFilterEffect;
-    private TextView mTvMusic;
+    // private TextView mTvMusic;
     private LinearLayout mAlivcAspectRatio;
     private TextView mTvAspectRatio;
     private ImageView mIVAspectRatio;
@@ -125,7 +125,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         aliyunSwitchLight = (ImageView) findViewById(R.id.aliyun_switch_light);
         mLlFilterEffect = findViewById(R.id.alivc_record_effect_filter);
         aliyunSwitchCamera = (ImageView) findViewById(R.id.aliyun_switch_camera);
-        mIvMusicIcon = findViewById(R.id.alivc_record_iv_music);
+        // mIvMusicIcon = findViewById(R.id.alivc_record_iv_music);
         aliyunComplete = findViewById(R.id.aliyun_complete);
         aliyunBack = (ImageView) findViewById(R.id.aliyun_back);
         aliyunRecordLayoutBottom = (LinearLayout) findViewById(R.id.aliyun_record_layout_bottom);
@@ -145,7 +145,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         mTitleView = findViewById(R.id.alivc_record_title_view);
         mRecordTipTV = findViewById(R.id.alivc_record_tip_tv);
 //        mAlivcMusic = findViewById(R.id.alivc_music);
-        mTvMusic = findViewById(R.id.tv_music);
+        // mTvMusic = findViewById(R.id.tv_music);
         //uiStyleConfig
         //音乐按钮
         //倒计时
@@ -599,18 +599,18 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         if (hasRecordPiece) {
             //已经开始录制不允许更改音乐
             // mAlivcMusic.setClickable(false);
-            mIvMusicIcon.setColorFilter(ContextCompat.getColor(getContext(), R.color.alivc_record_color_filter), PorterDuff.Mode.MULTIPLY);
-            mTvMusic.setTextColor(ContextCompat.getColor(getContext(), R.color.alivc_record_color_filter));
+            // mIvMusicIcon.setColorFilter(ContextCompat.getColor(getContext(), R.color.alivc_record_color_filter), PorterDuff.Mode.MULTIPLY);
+            //  mTvMusic.setTextColor(ContextCompat.getColor(getContext(), R.color.alivc_record_color_filter));
             //已经开始录制不允许更改画幅
             mIVAspectRatio.setColorFilter(ContextCompat.getColor(getContext(), R.color.alivc_record_color_filter), PorterDuff.Mode.MULTIPLY);
             mAlivcAspectRatio.setClickable(false);
             mIVAspectRatio.setImageDrawable(ratioDrawable);
             mTvAspectRatio.setTextColor(ContextCompat.getColor(getContext(), R.color.alivc_record_color_filter));
         } else {
-            mIvMusicIcon.clearColorFilter();
+            // mIvMusicIcon.clearColorFilter();
             mIVAspectRatio.clearColorFilter();
             mIVAspectRatio.setImageDrawable(ratioDrawable);
-            mTvMusic.setTextColor(ContextCompat.getColor(getContext(), R.color.alivc_common_font_white));
+            //   mTvMusic.setTextColor(ContextCompat.getColor(getContext(), R.color.alivc_common_font_white));
             // mAlivcMusic.setClickable(true);
             mAlivcAspectRatio.setClickable(true);
             mTvAspectRatio.setTextColor(ContextCompat.getColor(getContext(), R.color.alivc_common_font_white));
@@ -740,7 +740,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             if (recordMode == RecordMode.LONG_PRESS) {
                 mRecordTipTV.setText(R.string.alivc_recorder_control_press);
             } else {
-                mRecordTipTV.setText("");
+                mRecordTipTV.setText(R.string.alivc_recorder_control_click);
             }
         } else if (recordState == RecordState.COUNT_DOWN_RECORDING) {
             mRecordTipTV.setVisibility(GONE);
@@ -911,30 +911,30 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         updateCompleteView();
     }
 
-    /**
-     * 设置应用音乐icon
-     *
-     * @param icon
-     */
-    public void setMusicIcon(String icon) {
-        new ImageLoaderImpl()
-
-                .loadImage(getContext(), icon, new ImageLoaderOptions.Builder()
-                        .circle()
-                        .error(R.mipmap.aliyun_svideo_music)
-                        .crossFade()
-                        .build())
-                .into(mIvMusicIcon);
-    }
+//    /**
+//     * 设置应用音乐icon
+//     *
+//     * @param icon
+//     */
+//    public void setMusicIcon(String icon) {
+//        new ImageLoaderImpl()
+//
+//                .loadImage(getContext(), icon, new ImageLoaderOptions.Builder()
+//                        .circle()
+//                        .error(R.mipmap.aliyun_svideo_music)
+//                        .crossFade()
+//                        .build())
+//                .into(mIvMusicIcon);
+//    }
 
     /**
      * 设置应用音乐icon
      *
      * @param id
      */
-    public void setMusicIconId(@DrawableRes int id) {
-        mIvMusicIcon.setImageResource(id);
-    }
+//    public void setMusicIconId(@DrawableRes int id) {
+//        mIvMusicIcon.setImageResource(id);
+//    }
 
     /**
      * 设置画幅比例

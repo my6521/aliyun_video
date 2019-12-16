@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--appbar-->
+    <!--    android:layout_marginTop="@dimen/alivc_common_margin_20"-->
     <FrameLayout
         android:id="@+id/alivc_record_title_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/alivc_common_height_tittle_54"
-        android:layout_marginTop="@dimen/alivc_common_margin_20">
+        android:layout_height="@dimen/alivc_common_height_tittle_54">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,45 +57,46 @@
             android:padding="@dimen/alivc_common_padding_5"
             android:src="@mipmap/aliyun_svideo_icon_back" />
     </FrameLayout>
-    <!--音乐-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/alivc_music"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/alivc_record_title_view"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_marginTop="@dimen/alivc_record_margin_top_music"-->
-<!--        android:layout_marginRight="16dp"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:orientation="vertical">-->
 
-<!--        -->
-<!--        <ImageView-->alivc_record_iv_music
-<!--            android:id="@+id/"-->
-<!--            android:layout_width="@dimen/alivc_common_size_icon_32"-->
-<!--            android:layout_height="@dimen/alivc_common_size_icon_32"-->
-<!--            android:src="@mipmap/aliyun_svideo_music" />-->
+    <LinearLayout
+        android:id="@+id/alivc_music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alivc_record_title_view"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/alivc_record_margin_top_music"
+        android:layout_marginRight="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_music"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="@dimen/alivc_common_margin_3"-->
-<!--            android:shadowColor="@color/alivc_common_bg_black_alpha_40"-->
-<!--            android:shadowDx="1.0"-->
-<!--            android:shadowDy="1.0"-->
-<!--            android:shadowRadius="3.0"-->
-<!--            android:text="@string/alivc_recorder_control_music"-->
-<!--            android:textColor="@color/alivc_common_font_white"-->
-<!--            android:textSize="@dimen/alivc_common_font_10" />-->
 
-<!--    </LinearLayout>-->
-    <!--滤镜    android:layout_below="@id/alivc_music"-->
+        <ImageView
+            android:id="@+id/alivc_record_iv_music"
+            android:layout_width="@dimen/alivc_common_size_icon_32"
+            android:layout_height="@dimen/alivc_common_size_icon_32"
+            android:src="@mipmap/aliyun_svideo_music" />
+
+        <TextView
+            android:id="@+id/tv_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/alivc_common_margin_3"
+            android:shadowColor="@color/alivc_common_bg_black_alpha_40"
+            android:shadowDx="1.0"
+            android:shadowDy="1.0"
+            android:shadowRadius="3.0"
+            android:text="@string/alivc_recorder_control_music"
+            android:textColor="@color/alivc_common_font_white"
+            android:textSize="@dimen/alivc_common_font_10" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/alivc_record_effect_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_below="@id/alivc_record_title_view"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/alivc_common_margin_25"
         android:layout_marginRight="@dimen/alivc_common_margin_16"
@@ -276,7 +277,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/aliyun_record_bg"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_beauty_face"
@@ -284,7 +286,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/alivc_svideo_icon_beauty_face" />
             </LinearLayout>
-                <!--gif图-->
+            <!--gif图-->
             <LinearLayout
                 android:id="@+id/ll_gif_effect"
                 android:layout_width="wrap_content"
@@ -292,7 +294,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/aliyun_record_bg"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_gif_effect"

@@ -4,37 +4,49 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import com.aliyun.common.global.Version
+import com.aliyun.svideo.sdk.external.struct.common.VideoQuality
+import com.aliyun.svideo.sdk.external.struct.encoder.VideoCodecs
 import com.sm9i.aliyun_video.aliyun.activity.AlivcSvideoRecordActivity
 import com.sm9i.aliyun_video.aliyun.bean.AlivcRecordInputParam
+import com.sm9i.aliyun_video.aliyun.editor.bean.AlivcEditInputParam
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.util.HashMap
 
-class AliyunVideoPlugin(private val context: Context, private val activity: Activity, private val res: PluginRegistry.ActivityResultListener) : MethodCallHandler {
+class AliyunVideoPlugin : MethodCallHandler {
+
+    private val context: Context
+    private val activity: Activity
+    private val resultMap: HashMap<String, Result>
+
+    constructor(registrar: Registrar) {
+        this.context = registrar.context()
+        this.activity = registrar.activity()
+        this.resultMap = HashMap()
+        registrar.addActivityResultListener { reqCode, respCode, intent ->
+            if (reqCode == AlivcSvideoRecordActivity.REQUEST_CODE && respCode == AlivcSvideoRecordActivity.RESPONSE_CODE) {
+                if (intent.hasExtra("param")) {
+                    resultMap[reqCode.toString()]?.success(intent.getStringExtra("param"))
+
+                }
+            }
+            false
+        }
+    }
+
 
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "aliyun_video")
-            dp("Version  Info")
-            dp("Version.MODULE=====${Version.VERSION}")
-            dp("Version.MODULE=====${Version.MODULE}")
-            dp("Version.MODULE=====${Version.BUILD_ID}")
-            dp("Version.MODULE=====${Version.SRC_COMMIT_ID}")
-            dp("Version.MODULE=====${Version.ALIVC_COMMIT_ID}")
-            dp("Version.MODULE=====${Version.ANDROID_COMMIT_ID}")
-            dp("Version.MODULE=====${Version.RACE_COMMIT_ID}")
 
-            channel.setMethodCallHandler(AliyunVideoPlugin(registrar.context(), registrar.activity(), PluginRegistry.ActivityResultListener { req, resp, intent ->
-                val a: Int = 2
-                false
-            }))
+            val channel = MethodChannel(registrar.messenger(), "aliyun_video")
+            channel.setMethodCallHandler(AliyunVideoPlugin(registrar))
         }
     }
-
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when {
@@ -47,6 +59,39 @@ class AliyunVideoPlugin(private val context: Context, private val activity: Acti
 
     private fun startVideo(call: MethodCall, result: Result) {
         this.result = result
-        AlivcSvideoRecordActivity.startRecord(activity, AlivcRecordInputParam())
+
+        val param = AlivcRecordInputParam()
+        call.argument<Int>(AlivcRecordInputParam.INTENT_KEY_RESOLUTION_MODE)?.let {
+            param.resolutionMode = it
+        }
+        call.argument<Int>(AlivcRecordInputParam.INTENT_KEY_MAX_DURATION)?.let {
+            param.maxDuration = it
+        }
+        call.argument<Int>(AlivcRecordInputParam.INTENT_KEY_MIN_DURATION)?.let {
+            param.minDuration = it
+        }
+        call.argument<Int>(AlivcRecordInputParam.INTENT_KEY_RATION_MODE)?.let {
+            param.ratioMode = it
+        }
+        call.argument<Int>(AlivcRecordInputParam.INTENT_KEY_GOP)?.let {
+            param.gop = it
+        }
+        call.argument<Int>(AlivcRecordInputParam.INTENT_KEY_FRAME)?.let {
+            param.frame = it
+        }
+        call.argument<String>(AlivcRecordInputParam.INTENT_KEY_QUALITY)?.let {
+            param.videoQuality = VideoQuality.valueOf(it)
+        }
+        call.argument<String>(AlivcRecordInputParam.INTENT_KEY_CODEC)?.let {
+            param.videoCodec = VideoCodecs.valueOf(it)
+        }
+        call.argument<String>(AlivcRecordInputParam.INTENT_KEY_VIDEO_OUTPUT_PATH)?.let {
+            param.videoOutputPath = it
+        }
+
+        AlivcSvideoRecordActivity.startRecord(activity, param)
+
+        resultMap[AlivcSvideoRecordActivity.REQUEST_CODE.toString()] = result
+
     }
 }

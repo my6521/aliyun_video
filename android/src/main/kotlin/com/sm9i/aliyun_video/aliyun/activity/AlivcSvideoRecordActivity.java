@@ -43,7 +43,9 @@ import com.sm9i.aliyun_video.aliyun.view.music.MusicSelectListener;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 新版本(> 3.6.5之后)录制模块的实现类, 主要是为了承载 AliyunSvideoRecordView
@@ -361,7 +363,9 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
                         .setVideoCodec(mInputParam.getVideoCodec())
                         .setRatio(ratio)
                         .build();
-                setResult(RESPONSE_CODE, new Intent().putExtra("param", param));
+                // setResult(RESPONSE_CODE, new Intent().putExtra("param", param));
+                setResult(RESPONSE_CODE, new Intent().putExtra("param", mediaInfo.filePath));
+                finish();
 //                 EditorActivity.startEdit(AlivcSvideoRecordActivity.this, param);
             }
         });

@@ -20,6 +20,7 @@ import com.sm9i.aliyun_video.aliyun.common.utils.DensityUtils;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
+///进度条
 public class RecordTimelineView extends View {
 
     private final static String TAG = RecordTimelineView.class.getSimpleName();
@@ -69,22 +70,22 @@ public class RecordTimelineView extends View {
         for (int i = 0; i < clipDurationList.size(); i++) {
             DrawInfo info = clipDurationList.get(i);
             switch (info.drawType) {
-            case OFFSET:
-                paint.setColor(getResources().getColor(offsetColor));
-                break;
-            case DURATION:
-                paint.setColor(getResources().getColor(durationColor));
-                break;
-            case SELECT:
-                paint.setColor(getResources().getColor(selectColor));
-                break;
-            default:
-                paint.setColor(getResources().getColor(offsetColor));
+                case OFFSET:
+                    paint.setColor(getResources().getColor(offsetColor));
+                    break;
+                case DURATION:
+                    paint.setColor(getResources().getColor(durationColor));
+                    break;
+                case SELECT:
+                    paint.setColor(getResources().getColor(selectColor));
+                    break;
+                default:
+                    paint.setColor(getResources().getColor(offsetColor));
             }
 
             if (info.drawType == DrawType.OFFSET) {
                 canvas.drawRect((lastTotalDuration - info.length) / (float) maxDuration * getWidth(), 0f,
-                                lastTotalDuration / (float) maxDuration * getWidth(), getHeight(), paint);
+                        lastTotalDuration / (float) maxDuration * getWidth(), getHeight(), paint);
             } else {
                 //第一个片段，在最左侧添加半圆
                 if (i == 0) {
@@ -93,12 +94,12 @@ public class RecordTimelineView extends View {
                     float right = (lastTotalDuration + info.length) / (float) maxDuration * getWidth();
                     if (right > getHeight() / 2) {
                         canvas.drawRect(getHeight() / 2, 0f,
-                                        right, getHeight(), paint);
+                                right, getHeight(), paint);
                     }
 
                 } else {
                     canvas.drawRect(lastTotalDuration / (float) maxDuration * getWidth(), 0f,
-                                    (lastTotalDuration + info.length) / (float) maxDuration * getWidth(), getHeight(), paint);
+                            (lastTotalDuration + info.length) / (float) maxDuration * getWidth(), getHeight(), paint);
                 }
                 lastTotalDuration += info.length;
             }
@@ -122,7 +123,7 @@ public class RecordTimelineView extends View {
         if (lastTotalDuration + currentClipDuration.length < minDuration) {
             paint.setColor(getResources().getColor(offsetColor));
             canvas.drawRect(minDuration / (float) maxDuration * getWidth(), 0f,
-                            (minDuration + maxDuration / 200) / (float) maxDuration * getWidth(), getHeight(), paint);
+                    (minDuration + maxDuration / 200) / (float) maxDuration * getWidth(), getHeight(), paint);
         }
         Log.d("onDraw", "lastTotalDuration" + lastTotalDuration + "\n" + "maxDuration" + maxDuration);
     }
@@ -135,7 +136,7 @@ public class RecordTimelineView extends View {
         clipDurationList.add(info);
         currentClipDuration = new DrawInfo();
         Log.i(TAG, "TotalDuration :" + getTimelineDuration() + " ,currentDuration : " + currentClipDuration.length
-              + " ,count : " + clipDurationList.size());
+                + " ,count : " + clipDurationList.size());
         invalidate();
     }
 

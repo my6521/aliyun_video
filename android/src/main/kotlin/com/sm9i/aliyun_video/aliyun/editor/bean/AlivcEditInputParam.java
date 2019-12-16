@@ -128,16 +128,16 @@ public class AlivcEditInputParam implements Serializable {
      */
     public AliyunVideoParam generateVideoParam() {
         AliyunVideoParam param = new AliyunVideoParam.Builder()
-        .frameRate(mFrameRate)
-        .gop(mGop)
-        .crf(mCrf)
-        .videoQuality(mVideoQuality)
-        .scaleMode(mScaleMode)
-        .scaleRate(mScaleRate)
-        .outputWidth(getOutputVideoWidth())
-        .outputHeight(geOutputtVideoHeight())
-        .videoCodec(mVideoCodec)
-        .build();
+                .frameRate(mFrameRate)
+                .gop(mGop)
+                .crf(mCrf)
+                .videoQuality(mVideoQuality)
+                .scaleMode(mScaleMode)
+                .scaleRate(mScaleRate)
+                .outputWidth(getOutputVideoWidth())
+                .outputHeight(geOutputtVideoHeight())
+                .videoCodec(mVideoCodec)
+                .build();
         return param;
     }
 
@@ -148,16 +148,16 @@ public class AlivcEditInputParam implements Serializable {
      */
     public AliyunVideoParam generateMixVideoParam() {
         AliyunVideoParam param = new AliyunVideoParam.Builder()
-        .frameRate(mFrameRate)
-        .gop(mGop)
-        .crf(mCrf)
-        .videoQuality(mVideoQuality)
-        .scaleMode(mScaleMode)
-        .scaleRate(mScaleRate)
-        .outputWidth(720)
-        .outputHeight(640)
-        .videoCodec(mVideoCodec)
-        .build();
+                .frameRate(mFrameRate)
+                .gop(mGop)
+                .crf(mCrf)
+                .videoQuality(mVideoQuality)
+                .scaleMode(mScaleMode)
+                .scaleRate(mScaleRate)
+                .outputWidth(720)
+                .outputHeight(640)
+                .videoCodec(mVideoCodec)
+                .build();
         return param;
     }
 
@@ -170,25 +170,25 @@ public class AlivcEditInputParam implements Serializable {
         int height = 0;
         int width = getOutputVideoWidth();
         switch (mRatio) {
-        case RATIO_MODE_1_1:
-            height = width;
-            break;
-        case RATIO_MODE_3_4:
-            height = width * 4 / 3;
-            break;
-        case RATIO_MODE_9_16:
-            height = width * 16 / 9;
-            break;
-        case RATIO_MODE_ORIGINAL:
-            if (mediaInfos != null && mediaInfos.size() > 0) {
-                height = (int) (width / getMediaRatio(mediaInfos.get(0)));
-            } else {
+            case RATIO_MODE_1_1:
+                height = width;
+                break;
+            case RATIO_MODE_3_4:
+                height = width * 4 / 3;
+                break;
+            case RATIO_MODE_9_16:
                 height = width * 16 / 9;
-            }
-            break;
-        default:
-            height = width * 16 / 9;
-            break;
+                break;
+            case RATIO_MODE_ORIGINAL:
+                if (mediaInfos != null && mediaInfos.size() > 0) {
+                    height = (int) (width / getMediaRatio(mediaInfos.get(0)));
+                } else {
+                    height = width * 16 / 9;
+                }
+                break;
+            default:
+                height = width * 16 / 9;
+                break;
         }
         return height;
     }
@@ -201,21 +201,21 @@ public class AlivcEditInputParam implements Serializable {
     public int getOutputVideoWidth() {
         int width = 0;
         switch (mResolutionMode) {
-        case RESOLUTION_360P:
-            width = 360;
-            break;
-        case RESOLUTION_480P:
-            width = 480;
-            break;
-        case RESOLUTION_540P:
-            width = 540;
-            break;
-        case RESOLUTION_720P:
-            width = 720;
-            break;
-        default:
-            width = 540;
-            break;
+            case RESOLUTION_360P:
+                width = 360;
+                break;
+            case RESOLUTION_480P:
+                width = 480;
+                break;
+            case RESOLUTION_540P:
+                width = 540;
+                break;
+            case RESOLUTION_720P:
+                width = 720;
+                break;
+            default:
+                width = 540;
+                break;
         }
         return width;
     }
@@ -367,7 +367,6 @@ public class AlivcEditInputParam implements Serializable {
     public void setsMixRecorder(boolean mixRecorder) {
         isMixRecorder = mixRecorder;
     }
-
 
 
     public static class Builder {

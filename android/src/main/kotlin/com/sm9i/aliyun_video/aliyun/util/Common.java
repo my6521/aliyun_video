@@ -8,12 +8,7 @@ import android.content.Context;
 
 import com.aliyun.common.logger.Logger;
 import com.aliyun.common.utils.StorageUtils;
-import com.aliyun.jasonparse.JSONSupport;
-import com.aliyun.jasonparse.JSONSupportImpl;
 import com.aliyun.svideo.sdk.external.struct.form.AspectForm;
-import com.aliyun.svideo.sdk.external.struct.form.PasterForm;
-import com.aliyun.svideo.sdk.external.struct.form.ResourceForm;
-import com.sm9i.aliyun_video.aliyun.base.http.EffectService;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -64,126 +58,126 @@ public class Common {
         MV16_9
     };
 
-    static private void copyFileToSD(Context cxt, String src, String dst) throws IOException {
-        InputStream myInput;
-        OutputStream myOutput = new FileOutputStream(dst);
-        myInput = cxt.getAssets().open(src);
-        byte[] buffer = new byte[1024];
-        int length = myInput.read(buffer);
-        while (length > 0) {
-            myOutput.write(buffer, 0, length);
-            length = myInput.read(buffer);
-        }
+//    static private void copyFileToSD(Context cxt, String src, String dst) throws IOException {
+//        InputStream myInput;
+//        OutputStream myOutput = new FileOutputStream(dst);
+//        myInput = cxt.getAssets().open(src);
+//        byte[] buffer = new byte[1024];
+//        int length = myInput.read(buffer);
+//        while (length > 0) {
+//            myOutput.write(buffer, 0, length);
+//            length = myInput.read(buffer);
+//        }
+//
+//        myOutput.flush();
+//        myInput.close();
+//        myOutput.close();
+//    }
+//    static public void copySelf(Context cxt, String root) {
+//        try {
+//            String[] files = cxt.getAssets().list(root);
+//            if (files.length > 0) {
+//                File subdir = new File(Common.SD_DIR + root);
+//                if (!subdir.exists()) {
+//                    subdir.mkdirs();
+//                }
+//                for (String fileName : files) {
+//                    if (new File(Common.SD_DIR + root + File.separator + fileName).exists()) {
+//                        continue;
+//                    }
+//                    copySelf(cxt, root + "/" + fileName);
+//                }
+//            } else {
+//                Logger.getDefaultLogger().d("copy...." + Common.SD_DIR + root);
+//                OutputStream myOutput = new FileOutputStream(Common.SD_DIR + root);
+//                InputStream myInput = cxt.getAssets().open(root);
+//                byte[] buffer = new byte[1024 * 8];
+//                int length = myInput.read(buffer);
+//                while (length > 0) {
+//                    myOutput.write(buffer, 0, length);
+//                    length = myInput.read(buffer);
+//                }
+//
+//                myOutput.flush();
+//                myInput.close();
+//                myOutput.close();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        myOutput.flush();
-        myInput.close();
-        myOutput.close();
-    }
-    static public void copySelf(Context cxt, String root) {
-        try {
-            String[] files = cxt.getAssets().list(root);
-            if (files.length > 0) {
-                File subdir = new File(Common.SD_DIR + root);
-                if (!subdir.exists()) {
-                    subdir.mkdirs();
-                }
-                for (String fileName : files) {
-                    if (new File(Common.SD_DIR + root + File.separator + fileName).exists()) {
-                        continue;
-                    }
-                    copySelf(cxt, root + "/" + fileName);
-                }
-            } else {
-                Logger.getDefaultLogger().d("copy...." + Common.SD_DIR + root);
-                OutputStream myOutput = new FileOutputStream(Common.SD_DIR + root);
-                InputStream myInput = cxt.getAssets().open(root);
-                byte[] buffer = new byte[1024 * 8];
-                int length = myInput.read(buffer);
-                while (length > 0) {
-                    myOutput.write(buffer, 0, length);
-                    length = myInput.read(buffer);
-                }
+//    static public void copyAll(Context cxt) {
+//        SD_DIR = StorageUtils.getCacheDirectory(cxt).getAbsolutePath() + File.separator;
+//        QU_DIR = SD_DIR + QU_NAME + File.separator;
+//        EFFECT_DIR = SD_DIR + EFFET_ROOTER + File.separator;
+//        File dir = new File(Common.QU_DIR);
+//        File dir2 = new File(Common.EFFECT_DIR);
+//        copySelf(cxt, QU_NAME);
+//        copySelf(cxt, EFFET_ROOTER);
+//        dir.mkdirs();
+//        dir2.mkdirs();
+//        unZip(Common.SD_DIR + QU_NAME);
+//        unZip(Common.SD_DIR + EFFET_ROOTER);
+//    }
+//
+//    public static void unZip(String srcDir) {
+//        File[] files = new File(srcDir).listFiles(new FilenameFilter() {
+//            @Override
+//            public boolean accept(File dir, String name) {
+//                if (name != null && name.endsWith(".zip")) {
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+//        if (files == null) {
+//            return;
+//        }
+//        for (final File file : files) {
+//            int len = file.getAbsolutePath().length();
+//            if (!new File(file.getAbsolutePath().substring(0, len - 4)).exists()) {
+//                try {
+//                    unZipFolder(file.getAbsolutePath(), srcDir);
+//                    //insertDB(file.getAbsolutePath().substring(0, len - 4));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//    }
 
-                myOutput.flush();
-                myInput.close();
-                myOutput.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    static public void copyAll(Context cxt) {
-        SD_DIR = StorageUtils.getCacheDirectory(cxt).getAbsolutePath() + File.separator;
-        QU_DIR = SD_DIR + QU_NAME + File.separator;
-        EFFECT_DIR = SD_DIR + EFFET_ROOTER + File.separator;
-        File dir = new File(Common.QU_DIR);
-        File dir2 = new File(Common.EFFECT_DIR);
-        copySelf(cxt, QU_NAME);
-        copySelf(cxt, EFFET_ROOTER);
-        dir.mkdirs();
-        dir2.mkdirs();
-        unZip(Common.SD_DIR + QU_NAME);
-        unZip(Common.SD_DIR + EFFET_ROOTER);
-    }
-
-    public static void unZip(String srcDir) {
-        File[] files = new File(srcDir).listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                if (name != null && name.endsWith(".zip")) {
-                    return true;
-                }
-                return false;
-            }
-        });
-        if (files == null) {
-            return;
-        }
-        for (final File file : files) {
-            int len = file.getAbsolutePath().length();
-            if (!new File(file.getAbsolutePath().substring(0, len - 4)).exists()) {
-                try {
-                    unZipFolder(file.getAbsolutePath(), srcDir);
-                    //insertDB(file.getAbsolutePath().substring(0, len - 4));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
-
-    public static void unZipFolder(String zipFileString, String outPathString) throws Exception {
-        ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString));
-        ZipEntry zipEntry;
-        String szName = "";
-        while ((zipEntry = inZip.getNextEntry()) != null) {
-            szName = zipEntry.getName();
-            if (zipEntry.isDirectory()) {
-                // get the folder name of the widget
-                szName = szName.substring(0, szName.length() - 1);
-                File folder = new File(outPathString + File.separator + szName);
-                folder.mkdirs();
-            } else {
-
-                File file = new File(outPathString + File.separator + szName);
-                file.createNewFile();
-                // get the output stream of the file
-                FileOutputStream out = new FileOutputStream(file);
-                int len;
-                byte[] buffer = new byte[1024];
-                // read (len) bytes into buffer
-                while ((len = inZip.read(buffer)) != -1) {
-                    // write (len) byte from buffer at the position 0
-                    out.write(buffer, 0, len);
-                    out.flush();
-                }
-                out.close();
-            }
-        }
-        inZip.close();
-    }
+//    public static void unZipFolder(String zipFileString, String outPathString) throws Exception {
+//        ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString));
+//        ZipEntry zipEntry;
+//        String szName = "";
+//        while ((zipEntry = inZip.getNextEntry()) != null) {
+//            szName = zipEntry.getName();
+//            if (zipEntry.isDirectory()) {
+//                // get the folder name of the widget
+//                szName = szName.substring(0, szName.length() - 1);
+//                File folder = new File(outPathString + File.separator + szName);
+//                folder.mkdirs();
+//            } else {
+//
+//                File file = new File(outPathString + File.separator + szName);
+//                file.createNewFile();
+//                // get the output stream of the file
+//                FileOutputStream out = new FileOutputStream(file);
+//                int len;
+//                byte[] buffer = new byte[1024];
+//                // read (len) bytes into buffer
+//                while ((len = inZip.read(buffer)) != -1) {
+//                    // write (len) byte from buffer at the position 0
+//                    out.write(buffer, 0, len);
+//                    out.flush();
+//                }
+//                out.close();
+//            }
+//        }
+//        inZip.close();
+//    }
 //
 //    private static void insertDB(String name) {
 //        if (name.endsWith(QU_MV)) {
@@ -349,91 +343,91 @@ public class Common {
 //            }
 //        }
 //    }
-    public static String getMVPath(List<AspectForm> list, int w, int h) {
-        String path = null;
-        if (list == null || list.size() == 0) {
-            return path;
-        }
-        path = calculatePercent(list, w, h);
-        return path;
-    }
-    public static String calculatePercent(List<AspectForm> list, int w, int h) {
-        int result = 0;
-        String path = null;
-        if (list == null || list.size() == 0 || h <= 0 || w <= 0) {
-            return path;
-        }
-        float percent = (float)w / h;
-        int aspect = 0;
-        Map map = new IdentityHashMap();
-        for (int i = 0; i < list.size(); i++) {
-            aspect = list.get(i).getAspect();
-            path = list.get(i).getPath();
-            if (aspect == 1 && exits(path + File.separator + MV1_1)) {
-                map.put(new Integer(1), (float)1);
-            } else if (aspect == 2) {
-                if (exits(path + File.separator + MV3_4)) {
-                    map.put(new Integer(2), (float)3 / 4);
-                }
-                if (exits(path + File.separator + MV4_3)) {
-                    map.put(new Integer(3), (float)4 / 3);
-                }
-            } else if (aspect == 3) {
-                if (exits(path + File.separator + MV9_16)) {
-                    map.put(new Integer(4), (float)9 / 16);
-                }
-                if (exits(path + File.separator + MV16_9)) {
-                    map.put(new Integer(5), (float)16 / 9);
-                }
-            }
-        }
+//    public static String getMVPath(List<AspectForm> list, int w, int h) {
+//        String path = null;
+//        if (list == null || list.size() == 0) {
+//            return path;
+//        }
+//        path = calculatePercent(list, w, h);
+//        return path;
+//    }
+//    public static String calculatePercent(List<AspectForm> list, int w, int h) {
+//        int result = 0;
+//        String path = null;
+//        if (list == null || list.size() == 0 || h <= 0 || w <= 0) {
+//            return path;
+//        }
+//        float percent = (float)w / h;
+//        int aspect = 0;
+//        Map map = new IdentityHashMap();
+//        for (int i = 0; i < list.size(); i++) {
+//            aspect = list.get(i).getAspect();
+//            path = list.get(i).getPath();
+//            if (aspect == 1 && exits(path + File.separator + MV1_1)) {
+//                map.put(new Integer(1), (float)1);
+//            } else if (aspect == 2) {
+//                if (exits(path + File.separator + MV3_4)) {
+//                    map.put(new Integer(2), (float)3 / 4);
+//                }
+//                if (exits(path + File.separator + MV4_3)) {
+//                    map.put(new Integer(3), (float)4 / 3);
+//                }
+//            } else if (aspect == 3) {
+//                if (exits(path + File.separator + MV9_16)) {
+//                    map.put(new Integer(4), (float)9 / 16);
+//                }
+//                if (exits(path + File.separator + MV16_9)) {
+//                    map.put(new Integer(5), (float)16 / 9);
+//                }
+//            }
+//        }
+//
+//        float diffNum = -1;
+//        Iterator iterator = map.entrySet().iterator();
+//        while (iterator.hasNext()) {
+//            Map.Entry entry = (Map.Entry) iterator.next();
+//            if (diffNum == -1) {
+//                diffNum = Math.abs(percent - (float)entry.getValue());
+//                result = (Integer) entry.getKey();
+//                continue;
+//            }
+//
+//            float diffNumTemp = Math.abs(percent - (float)entry.getValue());
+//            if (diffNum >= diffNumTemp) {
+//                diffNum = diffNumTemp;
+//                result = (Integer) entry.getKey();
+//
+//            }
+//        }
+//        if (result != 0) {
+//            for (AspectForm form : list) {
+//                if (result == 1 && form.getAspect() == 1) {
+//                    path = form.getPath();
+//                    break;
+//                } else if ((result == 2 || result == 3) && form.getAspect() == 2) {
+//                    path = form.getPath();
+//                    break;
+//                } else if ((result == 4 || result == 5) && form.getAspect() == 3) {
+//                    path = form.getPath();
+//                    break;
+//                }
+//            }
+//            path = path + File.separator + mv_dirs[result - 1];
+//        }
+//        return path;
+//    }
 
-        float diffNum = -1;
-        Iterator iterator = map.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            if (diffNum == -1) {
-                diffNum = Math.abs(percent - (float)entry.getValue());
-                result = (Integer) entry.getKey();
-                continue;
-            }
-
-            float diffNumTemp = Math.abs(percent - (float)entry.getValue());
-            if (diffNum >= diffNumTemp) {
-                diffNum = diffNumTemp;
-                result = (Integer) entry.getKey();
-
-            }
-        }
-        if (result != 0) {
-            for (AspectForm form : list) {
-                if (result == 1 && form.getAspect() == 1) {
-                    path = form.getPath();
-                    break;
-                } else if ((result == 2 || result == 3) && form.getAspect() == 2) {
-                    path = form.getPath();
-                    break;
-                } else if ((result == 4 || result == 5) && form.getAspect() == 3) {
-                    path = form.getPath();
-                    break;
-                }
-            }
-            path = path + File.separator + mv_dirs[result - 1];
-        }
-        return path;
-    }
-
-    public static boolean exits(String path) {
-        boolean isExits = false;
-        if (path == null || "".equals(path)) {
-            return isExits;
-        }
-        File file = new File(path);
-        if (file.exists()) {
-            isExits = true;
-        }
-        return isExits;
-    }
+//    public static boolean exits(String path) {
+//        boolean isExits = false;
+//        if (path == null || "".equals(path)) {
+//            return isExits;
+//        }
+//        File file = new File(path);
+//        if (file.exists()) {
+//            isExits = true;
+//        }
+//        return isExits;
+//    }
 
     /**
      * 获取滤镜

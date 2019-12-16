@@ -1,8 +1,8 @@
 name: aliyun_video
 description: Alicloud short video
 version: 0.0.1
-author:
-homepage:
+author: Jooooker <ywwjwy@gmail.com>
+homepage: https://github.com/sm9i/aliyun_video
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
