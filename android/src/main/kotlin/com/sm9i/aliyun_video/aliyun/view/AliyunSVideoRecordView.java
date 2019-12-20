@@ -569,6 +569,11 @@ public class AliyunSVideoRecordView extends FrameLayout
             }
 
             @Override
+            public void changeType(boolean isVideo) {
+                mRecordTimeView.setVisibility(isVideo ? VISIBLE : GONE);
+            }
+
+            @Override
             public void onNextClick() {
                 // 完成录制
                 if (!isStopToCompleteDuration) {

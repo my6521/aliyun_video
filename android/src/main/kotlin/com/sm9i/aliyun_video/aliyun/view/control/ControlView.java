@@ -33,6 +33,8 @@ import java.util.List;
 
 /**
  * 美颜  gif  滤镜 注释掉
+ * <p>
+ * 更换录制为 拍照
  */
 public class ControlView extends RelativeLayout implements View.OnTouchListener {
     private static final String TAG = ControlView.class.getSimpleName();
@@ -63,7 +65,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
     private StringScrollPicker mPickerView;
     private ControlViewListener mListener;
     // private ImageView mIvMusicIcon;
-    private LinearLayout mLlFilterEffect;
+    // private LinearLayout mLlFilterEffect;
     // private TextView mTvMusic;
     private LinearLayout mAlivcAspectRatio;
     private TextView mTvAspectRatio;
@@ -127,7 +129,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         mIVAspectRatio = findViewById(R.id.alivc_aspect_iv_ratio);
         ivReadyRecord = (ImageView) findViewById(R.id.aliyun_ready_record);
         aliyunSwitchLight = (ImageView) findViewById(R.id.aliyun_switch_light);
-        mLlFilterEffect = findViewById(R.id.alivc_record_effect_filter);
+        // mLlFilterEffect = findViewById(R.id.alivc_record_effect_filter);
         aliyunSwitchCamera = (ImageView) findViewById(R.id.aliyun_switch_camera);
         // mIvMusicIcon = findViewById(R.id.alivc_record_iv_music);
         aliyunComplete = findViewById(R.id.aliyun_complete);
@@ -197,6 +199,19 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         return stateListDrawable;
     }
 
+
+    /**
+     * 设置view的隐藏和显示
+     * 和当前状态有关
+     *
+     * @param isShow 是否隐藏
+     */
+    private void setViewVisibility(boolean isShow) {
+        aliyunRateBar.setVisibility(isShow ? VISIBLE : GONE);
+        aliyunComplete.setVisibility(isShow ? VISIBLE : GONE);
+        ivReadyRecord.setVisibility(isShow ? VISIBLE : GONE);
+    }
+
     /**
      * 给各个view设置监听
      */
@@ -205,19 +220,14 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             @Override
             public void onSelected(BaseScrollPickerView baseScrollPickerView, int position) {
                 Log.i(TAG, "onSelected:" + position);
-                //if (FastClickUtil.isFastClick()) {
-                //    return;
-                //}
                 if (position == 0) {
                     recordMode = RecordMode.PHOTO;
-                    //隐藏所有View
-//
-//                    aliyunRecordDuration.setVisibility(GONE);
-//                    aliyunRateBar.setVisibility(GONE);
-//                    aliyunRateBar
-
+                    mListener.changeType(false);
+                    setViewVisibility(false);
                 } else {
                     recordMode = RecordMode.VIDEO;
+                    mListener.changeType(true);
+                    setViewVisibility(true);
                 }
                 updateRecordBtnView();
             }
@@ -419,17 +429,17 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
 //                }
 //            }
 //        });
-        mLlFilterEffect.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FastClickUtil.isFastClick()) {
-                    return;
-                }
-                if (mListener != null) {
-                    mListener.onFilterEffectClick();
-                }
-            }
-        });
+//        mLlFilterEffect.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (FastClickUtil.isFastClick()) {
+//                    return;
+//                }
+//                if (mListener != null) {
+//                    mListener.onFilterEffectClick();
+//                }
+//            }
+//        });
         mAlivcAspectRatio.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -567,7 +577,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         if (recordState == RecordState.STOP) {
             mTitleView.setVisibility(VISIBLE);
             // mAlivcMusic.setVisibility(VISIBLE);
-            mLlFilterEffect.setVisibility(VISIBLE);
+            // mLlFilterEffect.setVisibility(VISIBLE);
             mAlivcAspectRatio.setVisibility(VISIBLE);
             updateLightSwitchView();
             updateMusicSelView();
@@ -575,7 +585,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         } else {
             mTitleView.setVisibility(GONE);
             //   mAlivcMusic.setVisibility(GONE);
-            mLlFilterEffect.setVisibility(GONE);
+            //  mLlFilterEffect.setVisibility(GONE);
             mAlivcAspectRatio.setVisibility(GONE);
 
         }

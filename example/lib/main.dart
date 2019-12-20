@@ -22,7 +22,8 @@ class _MyAppState extends State<MyApp> {
   ];
 
   bool hasPermissions = false;
-  String filePath;
+
+  AliyunResult res;
 
   @override
   void initState() {
@@ -62,8 +63,8 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(
                 onPressed: () async {
                   if (hasPermissions) {
-                    AliyunVideo.startVideo().then((res) {
-                      filePath = res;
+                    AliyunVideo.startCamera().then((res) {
+                      this.res = res;
                     });
                   } else {
                     checkPermission();
@@ -73,16 +74,27 @@ class _MyAppState extends State<MyApp> {
               ),
               RaisedButton(
                 onPressed: () async {
-                  print(filePath);
-                  if (filePath != null) {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (_) => VideoPlayerPage(filePath)));
+                  if (res != null) {
+                    if (res.fileType == 0) {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (_) => VideoPlayerPage(res.filePath)));
+                    } else {
+                      setState(() {});
+                    }
                   }
                 },
                 child: Text('play'),
-              )
+              ),
+              if (res != null && res.fileType == 1)
+                Container(
+                  child: Image.file(
+                    File(
+                      res.filePath,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

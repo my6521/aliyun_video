@@ -78,4 +78,11 @@ public interface ControlViewListener {
     void onChangeAspectRatioClick(int ratio);
 
     void takePhoto(boolean needBitmap);
+
+    /**
+     * 改变拍摄
+     *
+     * @param isVideo true 拍摄视频  false 拍摄 照片
+     */
+    void changeType(boolean isVideo);
 }

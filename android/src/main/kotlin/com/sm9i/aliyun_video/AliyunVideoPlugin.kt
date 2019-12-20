@@ -29,20 +29,26 @@ class AliyunVideoPlugin : MethodCallHandler {
         this.resultMap = HashMap()
         registrar.addActivityResultListener { reqCode, respCode, intent ->
             if (reqCode == AlivcSvideoRecordActivity.REQUEST_CODE) {
+                //filePath 
+                //  0  是video  1 是photo 
+                // 如果fileTye =-1 则失败 
+                val map = HashMap<String, String>()
+                if (intent.hasExtra("param")) {
+                    map["filePath"] = intent.getStringExtra("param")
+
+                }
                 when (respCode) {
                     AlivcSvideoRecordActivity.RESPONSE_VIDEO_CODE -> {
-                        if (intent.hasExtra("param")) {
-                            resultMap[reqCode.toString()]?.success(intent.getStringExtra("param"))
-                        }
+                        map["fileType"] = "0"
                     }
                     AlivcSvideoRecordActivity.RESPONSE_PHOTO_CODE -> {
-                        if (intent.hasExtra("param")) {
-                            resultMap[reqCode.toString()]?.success(intent.getStringExtra("param"))
-                        }
+                        map["fileType"] = "1"
                     }
                 }
-
-
+                if (!map.containsKey("filePath")) {
+                    map["fileType"] = "-1"
+                }
+                resultMap[AlivcSvideoRecordActivity.REQUEST_CODE.toString()]?.success(map)
             }
             false
         }
@@ -95,10 +101,6 @@ class AliyunVideoPlugin : MethodCallHandler {
         call.argument<String>(AlivcRecordInputParam.INTENT_KEY_CODEC)?.let {
             param.videoCodec = VideoCodecs.valueOf(it)
         }
-        call.argument<String>(AlivcRecordInputParam.INTENT_KEY_VIDEO_OUTPUT_PATH)?.let {
-            param.videoOutputPath = it
-        }
-
         AlivcSvideoRecordActivity.startRecord(activity, param)
 
         resultMap[AlivcSvideoRecordActivity.REQUEST_CODE.toString()] = result

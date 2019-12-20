@@ -169,7 +169,6 @@ packages:
       name: video_player_platform_interface
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
 sdks:
   dart: ">=2.2.2 <3.0.0"
-  flutter: ">=1.9.1+hotfix.4 <2.0.0"
