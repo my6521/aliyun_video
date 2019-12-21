@@ -83,6 +83,7 @@ import com.sm9i.aliyun_video.aliyun.view.control.CameraType;
 import com.sm9i.aliyun_video.aliyun.view.control.ControlView;
 import com.sm9i.aliyun_video.aliyun.view.control.ControlViewListener;
 import com.sm9i.aliyun_video.aliyun.view.control.FlashType;
+import com.sm9i.aliyun_video.aliyun.view.control.RecordMode;
 import com.sm9i.aliyun_video.aliyun.view.control.RecordState;
 import com.sm9i.aliyun_video.aliyun.view.countdown.AlivcCountDownView;
 import com.sm9i.aliyun_video.aliyun.view.dialog.BeautyEffectChooser;
@@ -492,8 +493,11 @@ public class AliyunSVideoRecordView extends FrameLayout
         mRecordTimeView.setMaxDuration(clipManager.getMaxDuration());
         mRecordTimeView.setMinDuration(clipManager.getMinDuration());
         addView(mRecordTimeView, params);
+
         mRecordTimeView.setMaxDuration(getMaxRecordTime());
         mRecordTimeView.setMinDuration(minRecordTime);
+        //设置可见性
+        mRecordTimeView.setVisibility(ControlView.recordMode == RecordMode.VIDEO ? VISIBLE : GONE);
     }
 
     /**
@@ -553,6 +557,8 @@ public class AliyunSVideoRecordView extends FrameLayout
      */
     private void initControlView() {
         mControlView = new ControlView(getContext());
+        //设置进度条的可见
+
         mControlView.setControlViewListener(new ControlViewListener() {
             @Override
             public void onBackClick() {

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ import com.sm9i.aliyun_video.aliyun.util.NotchScreenUtil;
 import com.sm9i.aliyun_video.aliyun.util.voice.PhoneStateManger;
 import com.sm9i.aliyun_video.aliyun.utils.PermissionUtils;
 import com.sm9i.aliyun_video.aliyun.view.AliyunSVideoRecordView;
+import com.sm9i.aliyun_video.aliyun.view.control.ControlView;
+import com.sm9i.aliyun_video.aliyun.view.control.RecordMode;
 import com.sm9i.aliyun_video.aliyun.view.music.MusicSelectListener;
 
 import java.io.File;
@@ -81,7 +84,7 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
     };
     private Toast phoningToast;
     private PhoneStateManger phoneStateManger;
-
+    private RecordMode recordMode = RecordMode.VIDEO;
     /**
      * 判断是编辑模块进入还是通过社区模块的编辑功能进入
      */
@@ -123,6 +126,7 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
         }
         videoRecordView = findViewById(R.id.alivc_recordView);
         videoRecordView.setActivity(this);
+
         if (mInputParam != null) {
             videoRecordView.setGop(mInputParam.getGop());
             videoRecordView.setMaxRecordTime(mInputParam.getMaxDuration());
@@ -207,6 +211,15 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(videoOutputPath)) {
             videoOutputPath = AlivcRecordInputParam.DEFAULT_VALUE_VIDEO_OUTPUT_PATH;
         }
+        int createType = intent.getIntExtra(AlivcRecordInputParam.INTENT_KEY_CREATE_TYPE, 0);
+
+        if (createType == 0) {
+            recordMode = RecordMode.VIDEO;
+        } else {
+            recordMode = RecordMode.PHOTO;
+        }
+        ControlView.recordMode = recordMode;
+        Log.i("====", "" + recordMode);
         //获取录制输入参数
         mInputParam = new AlivcRecordInputParam.Builder()
                 .setResolutionMode(resolutionMode)
@@ -397,6 +410,7 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
         intent.putExtra(AlivcRecordInputParam.INTENT_KEY_QUALITY, recordInputParam.getVideoQuality());
         intent.putExtra(AlivcRecordInputParam.INTENT_KEY_CODEC, recordInputParam.getVideoCodec());
         intent.putExtra(AlivcRecordInputParam.INTENT_KEY_VIDEO_OUTPUT_PATH, recordInputParam.getVideoOutputPath());
+        intent.putExtra(AlivcRecordInputParam.INTENT_KEY_CREATE_TYPE, recordInputParam.getCreateType());
         activity.startActivityForResult(intent, REQUEST_CODE);
     }
 

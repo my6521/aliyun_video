@@ -9,6 +9,7 @@ class AliyunVideo {
 
   ///
   /// 开始拍摄
+  /// [createType]    拍摄类型  0 视频 1 照片
   /// [mResolutionMode]    分辨率
   /// [mMaxDuration] 最长时间
   /// [mMinDuration]  最短时间
@@ -21,6 +22,7 @@ class AliyunVideo {
   ///
   /// @return [AliyunResult]
   static Future<AliyunResult> startCamera({
+    int mCreateType = 0,
     int mResolutionMode = ResolutionMode.DEFAULT_RESOLUTION_720P,
     int mMaxDuration = 15 * 1000,
     int mMinDuration = 2 * 1000,
@@ -31,6 +33,7 @@ class AliyunVideo {
     String mVideoCodec = CodecsMode.DEFAULT_CODECS_H264_HARDWARE,
   }) async {
     final res = await _channel.invokeMethod('startVideo', {
+      "mCreateType": mCreateType,
       "mResolutionMode": mResolutionMode,
       "mMaxDuration": mMaxDuration,
       "mMinDuration": mMinDuration,

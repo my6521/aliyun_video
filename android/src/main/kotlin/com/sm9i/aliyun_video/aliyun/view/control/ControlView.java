@@ -71,7 +71,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
     private TextView mTvAspectRatio;
     private ImageView mIVAspectRatio;
     //录制模式
-    private RecordMode recordMode = RecordMode.VIDEO;
+    public static RecordMode recordMode = RecordMode.VIDEO;
     //是否有录制片段，true可以删除，不可选择音乐、拍摄模式view消失
     private boolean hasRecordPiece = false;
     //是否可以完成录制，录制时长大于最小录制时长时为true
@@ -222,11 +222,16 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
                 Log.i(TAG, "onSelected:" + position);
                 if (position == 0) {
                     recordMode = RecordMode.PHOTO;
-                    mListener.changeType(false);
+                    if (mListener != null) {
+                        mListener.changeType(false);
+                    }
+
                     setViewVisibility(false);
                 } else {
                     recordMode = RecordMode.VIDEO;
-                    mListener.changeType(true);
+                    if (mListener != null) {
+                        mListener.changeType(true);
+                    }
                     setViewVisibility(true);
                 }
                 updateRecordBtnView();

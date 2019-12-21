@@ -32,7 +32,14 @@ class AliyunVideoPlugin : MethodCallHandler {
                 //filePath 
                 //  0  是video  1 是photo 
                 // 如果fileTye =-1 则失败 
+
                 val map = HashMap<String, String>()
+
+                if (intent == null) {
+                    map["fileType"] = "-1"
+                    resultMap[AlivcSvideoRecordActivity.REQUEST_CODE.toString()]?.success(map)
+                    return@addActivityResultListener false
+                }
                 if (intent.hasExtra("param")) {
                     map["filePath"] = intent.getStringExtra("param")
 
@@ -48,6 +55,7 @@ class AliyunVideoPlugin : MethodCallHandler {
                 if (!map.containsKey("filePath")) {
                     map["fileType"] = "-1"
                 }
+
                 resultMap[AlivcSvideoRecordActivity.REQUEST_CODE.toString()]?.success(map)
             }
             false
@@ -101,6 +109,11 @@ class AliyunVideoPlugin : MethodCallHandler {
         call.argument<String>(AlivcRecordInputParam.INTENT_KEY_CODEC)?.let {
             param.videoCodec = VideoCodecs.valueOf(it)
         }
+        call.argument<Int>(AlivcRecordInputParam.INTENT_KEY_CREATE_TYPE)?.let {
+            param.createType = it
+            print("createType  $it")
+        }
+
         AlivcSvideoRecordActivity.startRecord(activity, param)
 
         resultMap[AlivcSvideoRecordActivity.REQUEST_CODE.toString()] = result

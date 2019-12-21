@@ -25,6 +25,7 @@ public class AlivcRecordInputParam {
     public static final String INTENT_KEY_QUALITY = "mVideoQuality";
     public static final String INTENT_KEY_CODEC = "mVideoCodec";
     public static final String INTENT_KEY_VIDEO_OUTPUT_PATH = "videoOutputPath";
+    public static final String INTENT_KEY_CREATE_TYPE = "mCreateType";
 
     public static final int RESOLUTION_360P = 0;
     public static final int RESOLUTION_480P = 1;
@@ -58,6 +59,11 @@ public class AlivcRecordInputParam {
      * 视频录制最大时长
      */
     private int mMaxDuration;
+
+    /**
+     * 拍摄类型
+     */
+    private int mCreateType;
     /**
      * 视频录制最小时长
      */
@@ -98,54 +104,67 @@ public class AlivcRecordInputParam {
         this.mVideoCodec = VideoCodecs.H264_HARDWARE;
         this.mVideoOutputPath = DEFAULT_VALUE_VIDEO_OUTPUT_PATH;
     }
+
     /**
      * 获取拍摄视频宽度
+     *
      * @return
      */
     public int getVideoWidth() {
         int width = 0;
         switch (mResolutionMode) {
-        case AliyunSnapVideoParam.RESOLUTION_360P:
-            width = 360;
-            break;
-        case AliyunSnapVideoParam.RESOLUTION_480P:
-            width = 480;
-            break;
-        case AliyunSnapVideoParam.RESOLUTION_540P:
-            width = 540;
-            break;
-        case AliyunSnapVideoParam.RESOLUTION_720P:
-            width = 720;
-            break;
-        default:
-            width = 540;
-            break;
+            case AliyunSnapVideoParam.RESOLUTION_360P:
+                width = 360;
+                break;
+            case AliyunSnapVideoParam.RESOLUTION_480P:
+                width = 480;
+                break;
+            case AliyunSnapVideoParam.RESOLUTION_540P:
+                width = 540;
+                break;
+            case AliyunSnapVideoParam.RESOLUTION_720P:
+                width = 720;
+                break;
+            default:
+                width = 540;
+                break;
         }
 
         return width;
     }
+
     public int getVideoHeight() {
         int width = getVideoWidth();
         int height = 0;
         switch (mRatioMode) {
-        case AliyunSnapVideoParam.RATIO_MODE_1_1:
-            height = width;
-            break;
-        case AliyunSnapVideoParam.RATIO_MODE_3_4:
-            height = width * 4 / 3;
-            break;
-        case AliyunSnapVideoParam.RATIO_MODE_9_16:
-            height = width * 16 / 9;
-            break;
-        default:
-            height = width;
-            break;
+            case AliyunSnapVideoParam.RATIO_MODE_1_1:
+                height = width;
+                break;
+            case AliyunSnapVideoParam.RATIO_MODE_3_4:
+                height = width * 4 / 3;
+                break;
+            case AliyunSnapVideoParam.RATIO_MODE_9_16:
+                height = width * 16 / 9;
+                break;
+            default:
+                height = width;
+                break;
         }
         return height;
     }
+
     public void setResolutionMode(int mResolutionMode) {
         this.mResolutionMode = mResolutionMode;
     }
+
+    public void setCreateType(int mCreateType) {
+        this.mCreateType = mCreateType;
+    }
+
+    public int getCreateType() {
+        return mCreateType;
+    }
+
 
     public void setMaxDuration(int mMaxDuration) {
         this.mMaxDuration = mMaxDuration;
@@ -187,6 +206,7 @@ public class AlivcRecordInputParam {
         return mMaxDuration;
     }
 
+
     public int getMinDuration() {
         return mMinDuration;
     }
@@ -217,6 +237,7 @@ public class AlivcRecordInputParam {
 
     public static class Builder {
         private AlivcRecordInputParam mParam = new AlivcRecordInputParam();
+
         public Builder setResolutionMode(int mResolutionMode) {
             this.mParam.mResolutionMode = mResolutionMode;
             return this;
@@ -261,6 +282,7 @@ public class AlivcRecordInputParam {
             this.mParam.mVideoOutputPath = videoOutputPath;
             return this;
         }
+
         public AlivcRecordInputParam build() {
             return this.mParam;
         }
