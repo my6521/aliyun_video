@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5383e202-7e2b-45f7-b13b-aaac979841c6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sm9i/aliyun_video/aliyun/view/AliyunSVideoRecordView.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sm9i/aliyun_video/aliyun/view/AliyunSVideoRecordView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sm9i/aliyun_video/aliyun/view/control/ControlView.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sm9i/aliyun_video/aliyun/view/control/ControlView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sm9i/aliyun_video/aliyun/view/dialog/BeautyEffectChooser.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sm9i/aliyun_video/aliyun/view/dialog/BeautyEffectChooser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/res/layout/alivc_beauty_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/layout/alivc_beauty_detail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/res/layout/alivc_recorder_view_control.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/res/layout/alivc_recorder_view_control.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/aliyun_video.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/aliyun_video.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -34,11 +26,20 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="9HQ0219524008785" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="178">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -77,10 +78,10 @@
         <option value="$PROJECT_DIR$/example/lib/video_play_page.dart" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
-        <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/lib/aliyun_video.dart" />
         <option value="$PROJECT_DIR$/example/pubspec.yaml" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/CHANGELOG.md" />
       </list>
     </option>
   </component>
@@ -154,7 +155,7 @@
     <frame x="36" y="23" width="1341" height="792" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20862202" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20862202" />
       <window_info id="Captures" order="1" side_tool="true" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -164,12 +165,12 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" visible="true" weight="0.43131462" />
+      <window_info anchor="bottom" id="Run" order="1" weight="0.43131462" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.2742857" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.5042857" />
-      <window_info anchor="bottom" id="Terminal" order="6" weight="0.26440176" />
+      <window_info anchor="bottom" id="Terminal" order="6" visible="true" weight="0.26440176" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Find" order="9" />
@@ -333,17 +334,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="178">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="105">
+          <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="33" />
         </state>
       </provider>
     </entry>

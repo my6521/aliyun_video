@@ -1,12 +1,15 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
-
-    init
+* TODO: init
+    
 ## 0.0.2
 
-* TODO: Describe initial release.
+* TODO: 增加拍摄或视频参数
+    
+## 0.0.3
 
-    增加拍摄或视频参数
+* TODO: 美颜功能 0-5
+
+    
     
 
