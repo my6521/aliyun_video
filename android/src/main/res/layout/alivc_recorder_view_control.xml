@@ -280,7 +280,7 @@
                 android:layout_toLeftOf="@id/aliyun_record_bg"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:visibility="gone">
+                >
 
                 <ImageView
                     android:id="@+id/iv_beauty_face"

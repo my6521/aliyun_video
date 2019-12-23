@@ -1,6 +1,6 @@
 name: aliyun_video
-description: Alicloud short video，使用Demo的部分代码
-version: 0.0.2
+description: Alibaba cloud short video, modified with demo code. Only taking photos and videos, beauty and filter are not included. Android only.
+version: 0.0.3
 author: Jooooker <ywwjwy@gmail.com>
 homepage: https://github.com/sm9i/aliyun_video
 

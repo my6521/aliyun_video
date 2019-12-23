@@ -1047,10 +1047,11 @@ public class AliyunSVideoRecordView extends FrameLayout
             }
         });
 
-        // 美颜微调dialog
+        //  设置 美颜微调dialog
         beautyEffectChooser.setOnBeautyFaceDetailClickListener(new OnBeautyDetailClickListener() {
             @Override
             public void onDetailClick() {
+                //英藏
                 beautyEffectChooser.dismiss();
                 mControlView.setEffectSelViewShow(true);
                 showBeautyFaceDetailDialog();
@@ -1118,7 +1119,7 @@ public class AliyunSVideoRecordView extends FrameLayout
             }
         });
 
-
+        ///美颜show
         beautyEffectChooser.show(getFragmentManager(), TAG_BEAUTY_CHOOSER);
     }
 

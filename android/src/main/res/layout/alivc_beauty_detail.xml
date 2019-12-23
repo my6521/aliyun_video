@@ -16,7 +16,7 @@
     <com.sm9i.aliyun_video.aliyun.base.widget.beauty.seekbar.BeautySeekBar
         android:id="@+id/beauty_seekbar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"/>
+        android:layout_height="48dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -85,12 +85,21 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
                 <RadioButton
                     android:id="@+id/beauty_buffing"
                     style="@style/BeautyDetailBtnStyle"
-                    android:layout_marginRight="@dimen/alivc_common_margin_55"
                     android:drawableStart="@drawable/icon_buffing"
                     android:drawableLeft="@drawable/icon_buffing" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
                 <RadioButton
                     android:id="@+id/beauty_whitening"
@@ -98,13 +107,21 @@
                     android:drawableStart="@drawable/icon_whitening"
                     android:drawableLeft="@drawable/icon_whitening" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
                 <RadioButton
                     android:id="@+id/beauty_ruddy"
                     style="@style/BeautyDetailBtnStyle"
-                    android:layout_marginLeft="@dimen/alivc_common_margin_55"
                     android:drawableStart="@drawable/icon_ruddy"
                     android:drawableLeft="@drawable/icon_ruddy" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
             </RadioGroup>
 
             <LinearLayout
@@ -115,22 +132,39 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
                 <TextView
                     style="@style/BeautyDetailTextStyle"
-                    android:layout_marginEnd="@dimen/alivc_common_margin_55"
-                    android:layout_marginRight="@dimen/alivc_common_margin_55"
+
                     android:text="@string/alivc_base_beauty_buffing" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
                 <TextView
                     style="@style/BeautyDetailTextStyle"
+
                     android:text="@string/alivc_base_beauty_whitening" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
                 <TextView
                     style="@style/BeautyDetailTextStyle"
-                    android:layout_marginStart="@dimen/alivc_common_margin_55"
-                    android:layout_marginLeft="@dimen/alivc_common_margin_55"
                     android:text="@string/alivc_base_beauty_blush" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
 

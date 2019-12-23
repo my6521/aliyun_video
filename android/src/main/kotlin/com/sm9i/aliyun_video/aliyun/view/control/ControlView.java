@@ -40,7 +40,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
     private static final String TAG = ControlView.class.getSimpleName();
     private static final int MAX_ITEM_COUNT = 5;
     //美颜和gif
-    // private LinearLayout llBeautyFace;
+     private LinearLayout llBeautyFace;
     // private LinearLayout llGifEffect;
     private ImageView ivReadyRecord;
     private ImageView aliyunSwitchLight;
@@ -145,7 +145,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         aliyunRecordBtn = (FrameLayout) findViewById(R.id.aliyun_record_bg);
         aliyunRecordProgress = (FanProgressBar) findViewById(R.id.aliyun_record_progress);
         aliyunDelete = (TextView) findViewById(R.id.aliyun_delete);
-        //  llBeautyFace = findViewById(R.id.ll_beauty_face);
+          llBeautyFace = findViewById(R.id.ll_beauty_face);
         // llGifEffect = findViewById(R.id.ll_gif_effect);
         mPickerView = findViewById(R.id.alivc_video_picker_view);
         mTitleView = findViewById(R.id.alivc_record_title_view);
@@ -389,18 +389,18 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             }
         });
         // 点击美颜
-//        llBeautyFace.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                if (mListener != null) {
-//                    if (FastClickUtil.isFastClick()) {
-//                        return;
-//                    }
-//                    mListener.onBeautyFaceClick();
-//                }
-//            }
-//        });
+        llBeautyFace.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    if (FastClickUtil.isFastClick()) {
+                        return;
+                    }
+                    mListener.onBeautyFaceClick();
+                }
+            }
+        });
         // 点击音乐
 //        mAlivcMusic.setOnClickListener(new OnClickListener() {
 //            @Override
@@ -674,11 +674,11 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             updateDeleteView();
             if (recordState == RecordState.STOP) {
                 //其他按钮现实
-                // llBeautyFace.setVisibility(VISIBLE);
+                 llBeautyFace.setVisibility(VISIBLE);
                 //  llGifEffect.setVisibility(VISIBLE);
             } else {
                 //llGifEffect.setVisibility(INVISIBLE);
-                // llBeautyFace.setVisibility(INVISIBLE);
+                 llBeautyFace.setVisibility(INVISIBLE);
             }
         }
 

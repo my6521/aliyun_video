@@ -64,6 +64,7 @@ class AliyunResult {
   }
 }
 
+///分辨率
 class ResolutionMode {
   static const int DEFAULT_RESOLUTION_360P = 0;
   static const int DEFAULT_RESOLUTION_480P = 1;
@@ -71,12 +72,14 @@ class ResolutionMode {
   static const int DEFAULT_RESOLUTION_720P = 3;
 }
 
+///屏幕比例
 class RatioMode {
   static const int DEFAULT_RATIO_MODE_3_4 = 0;
   static const int DEFAULT_RATIO_MODE_1_1 = 1;
   static const int DEFAULT_RATIO_MODE_9_16 = 2;
 }
 
+///质量
 class QualityMode {
   static const String DEFAULT_QUALITY_SSD = 'SSD';
   static const String DEFAULT_QUALITY_HD = 'HD';
@@ -86,6 +89,7 @@ class QualityMode {
   static const String DEFAULT_QUALITY_EPD = 'EPD';
 }
 
+///编码
 class CodecsMode {
   static const String DEFAULT_CODECS_H264_HARDWARE = 'H264_HARDWARE';
   static const String DEFAULT_CODECS_H264_H264_SOFT_OPENH264 =

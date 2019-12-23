@@ -86,7 +86,7 @@ public class BeautyEffectChooser extends BasePageChooser {
         //美肌
         beautySkinFragment.setTabTitle(getResources().getString(R.string.alivc_base_beauty_face));
         fragments.add(beautyFaceFragment);
-        fragments.add(beautySkinFragment);
+      //  fragments.add(beautySkinFragment);
 
 
         initBeautyFace();
