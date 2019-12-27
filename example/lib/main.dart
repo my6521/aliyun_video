@@ -2,7 +2,6 @@ import 'package:aliyun_video_example/video_play_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:aliyun_video/aliyun_video.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';

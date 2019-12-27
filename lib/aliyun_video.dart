@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert' as json;
 
 class AliyunVideo {
   static const MethodChannel _channel = const MethodChannel('aliyun_video');
