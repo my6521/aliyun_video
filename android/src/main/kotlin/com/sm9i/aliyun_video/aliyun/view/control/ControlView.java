@@ -40,7 +40,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
     private static final String TAG = ControlView.class.getSimpleName();
     private static final int MAX_ITEM_COUNT = 5;
     //美颜和gif
-     private LinearLayout llBeautyFace;
+    private LinearLayout llBeautyFace;
     // private LinearLayout llGifEffect;
     private ImageView ivReadyRecord;
     private ImageView aliyunSwitchLight;
@@ -71,7 +71,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
     private TextView mTvAspectRatio;
     private ImageView mIVAspectRatio;
     //录制模式
-    public static RecordMode recordMode = RecordMode.VIDEO;
+    public static RecordMode recordMode;
     //是否有录制片段，true可以删除，不可选择音乐、拍摄模式view消失
     private boolean hasRecordPiece = false;
     //是否可以完成录制，录制时长大于最小录制时长时为true
@@ -145,7 +145,7 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         aliyunRecordBtn = (FrameLayout) findViewById(R.id.aliyun_record_bg);
         aliyunRecordProgress = (FanProgressBar) findViewById(R.id.aliyun_record_progress);
         aliyunDelete = (TextView) findViewById(R.id.aliyun_delete);
-          llBeautyFace = findViewById(R.id.ll_beauty_face);
+        llBeautyFace = findViewById(R.id.ll_beauty_face);
         // llGifEffect = findViewById(R.id.ll_gif_effect);
         mPickerView = findViewById(R.id.alivc_video_picker_view);
         mTitleView = findViewById(R.id.alivc_record_title_view);
@@ -474,29 +474,8 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             if (recordState != RecordState.COUNT_DOWN_RECORDING) {
                 if (recordMode == RecordMode.PHOTO) {
                     mListener.takePhoto(true);
-                } else {
-                    if (isRecording) {
-                        return true;
-                    } else {
-                        if (mListener != null) {
-                            mListener.onStartRecordClick();
-                        }
-                    }
                 }
-
             }
-
-
-//            if (recordState != RecordState.COUNT_DOWN_RECORDING && recordMode == RecordMode.LONG_PRESS) {
-//                if (isRecording) {
-//                    return true;
-//                } else {
-//                    if (mListener != null) {
-//                        mListener.onStartRecordClick();
-//                    }
-//                }
-//            }
-
         } else if (event.getAction() == MotionEvent.ACTION_CANCEL
                 || event.getAction() == MotionEvent.ACTION_UP) {
             if (recordState == RecordState.COUNT_DOWN_RECORDING) {
@@ -510,33 +489,65 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
 
                 }
             } else {
-                if (recordMode == RecordMode.VIDEO) {
-                    if (mListener != null && recordState == RecordState.RECORDING) {
-                        mListener.onStopRecordClick();
-                        setRecordState(RecordState.STOP);
-                        //停止拍摄后立即展示回删
-                        if (hasRecordPiece) {
-                            setHasRecordPiece(true);
+                if (recordMode == RecordMode.PHOTO) {
+
+                } else {
+                    if (recordState == RecordState.RECORDING) {
+                        if (mListener != null) {
+                            mListener.onStopRecordClick();
+                            setRecordState(RecordState.STOP);
+                            //停止拍摄后立即展示回删
+                            if (hasRecordPiece) {
+                                setHasRecordPiece(true);
+                            }
+                        }
+                    } else {
+                        if (mListener != null && !isRecording) {
+                            mListener.onStartRecordClick();
                         }
                     }
-                } else {
-                    ///拍照
-//                    if (recordState == RecordState.RECORDING) {
-//                        if (mListener != null) {
-//                            mListener.onStopRecordClick();
-//                            setRecordState(RecordState.STOP);
-//                            //停止拍摄后立即展示回删
-//                            if (hasRecordPiece) {
-//                                setHasRecordPiece(true);
-//                            }
-//                        }
-//                    } else {
-//                        if (mListener != null && !isRecording) {
-//                            mListener.onStartRecordClick();
-//                        }
-//                    }
+                    updateRateItemView();
                 }
             }
+//
+//            if (recordState == RecordState.COUNT_DOWN_RECORDING) {
+//                if (mListener != null) {
+//                    mListener.onStopRecordClick();
+//                    setRecordState(RecordState.STOP);
+//                    //停止拍摄后立即展示回删
+//                    if (hasRecordPiece) {
+//                        setHasRecordPiece(true);
+//                    }
+//
+//                }
+//            } else {
+//                if (recordMode == RecordMode.VIDEO) {
+//                    if (mListener != null && recordState == RecordState.RECORDING) {
+//                        mListener.onStopRecordClick();
+//                        setRecordState(RecordState.STOP);
+//                        //停止拍摄后立即展示回删
+//                        if (hasRecordPiece) {
+//                            setHasRecordPiece(true);
+//                        }
+//                    }
+//                } else {
+//                    ///拍照
+////                    if (recordState == RecordState.RECORDING) {
+////                        if (mListener != null) {
+////                            mListener.onStopRecordClick();
+////                            setRecordState(RecordState.STOP);
+////                            //停止拍摄后立即展示回删
+////                            if (hasRecordPiece) {
+////                                setHasRecordPiece(true);
+////                            }
+////                        }
+////                    } else {
+////                        if (mListener != null && !isRecording) {
+////                            mListener.onStartRecordClick();
+////                        }
+////                    }
+//                }
+//            }
 
         }
         return true;
@@ -568,11 +579,15 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         //准备录制和音乐选择的时候所有view隐藏
         if (isMusicSelViewShow || recordState == RecordState.READY) {
             setVisibility(GONE);
+            setViewVisibility(recordMode == RecordMode.VIDEO);
         } else {
             setVisibility(VISIBLE);
             updateBottomView();
             updateTittleView();
+//            updateRateItemView();
         }
+
+
     }
 
     /**
@@ -674,11 +689,11 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             updateDeleteView();
             if (recordState == RecordState.STOP) {
                 //其他按钮现实
-                 llBeautyFace.setVisibility(VISIBLE);
+                llBeautyFace.setVisibility(VISIBLE);
                 //  llGifEffect.setVisibility(VISIBLE);
             } else {
                 //llGifEffect.setVisibility(INVISIBLE);
-                 llBeautyFace.setVisibility(INVISIBLE);
+                llBeautyFace.setVisibility(INVISIBLE);
             }
         }
 
@@ -688,7 +703,8 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
      * 更新速录选择按钮
      */
     private void updateRateItemView() {
-        if (recordState == RecordState.RECORDING || recordState == RecordState.COUNT_DOWN_RECORDING) {
+        if (recordState == RecordState.RECORDING || recordState == RecordState.COUNT_DOWN_RECORDING
+                || recordState == RecordState.READY) {
             aliyunRateBar.setVisibility(INVISIBLE);
         } else {
             aliyunRateBar.setVisibility(VISIBLE);
@@ -703,9 +719,6 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
                     break;
                 case FLOW:
                     aliyunRateHalf.setSelected(true);
-                    break;
-                case STANDARD:
-                    aliyunRateOrigin.setSelected(true);
                     break;
                 case FAST:
                     aliyunRateDouble.setSelected(true);
@@ -798,12 +811,11 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
             if (recordMode == RecordMode.VIDEO) {
                 aliyunRecordBtn.setBackgroundResource(R.mipmap.alivc_svideo_bg_record_start);
                 //拍摄按钮图片 - 长按中
-                UIConfigManager.setImageBackgroundConfig(aliyunRecordBtn, R.attr.videoShootImageLongPressing, R.mipmap.alivc_svideo_bg_record_start);
+                UIConfigManager.setImageBackgroundConfig(aliyunRecordBtn, R.attr.videoShootImageShooting, R.mipmap.alivc_svideo_bg_record_pause);
             } else {
                 //PHOTO
-                //   aliyunRecordBtn.setBackgroundResource(R.mipmap.alivc_svideo_bg_record_pause);
                 //拍摄按钮图片 - 拍摄中
-                UIConfigManager.setImageBackgroundConfig(aliyunRecordBtn, R.attr.videoShootImageShooting, R.mipmap.alivc_svideo_bg_record_pause);
+
             }
         }
     }
