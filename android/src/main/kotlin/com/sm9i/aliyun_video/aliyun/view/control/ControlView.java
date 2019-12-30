@@ -579,13 +579,15 @@ public class ControlView extends RelativeLayout implements View.OnTouchListener 
         //准备录制和音乐选择的时候所有view隐藏
         if (isMusicSelViewShow || recordState == RecordState.READY) {
             setVisibility(GONE);
-            setViewVisibility(recordMode == RecordMode.VIDEO);
+
         } else {
             setVisibility(VISIBLE);
             updateBottomView();
             updateTittleView();
 //            updateRateItemView();
+
         }
+        setViewVisibility(recordMode == RecordMode.VIDEO);
 
 
     }
